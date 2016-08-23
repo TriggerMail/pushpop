@@ -10,3 +10,14 @@ https://github.com/pushpop-project/pushpop-keen
 
 https://github.com/pushpop-project/pushpop-slack
 
+
+To run the programs in this repo locally, you need to install Ruby, Gem first.
+
+To run the alert directly, the command is:
+bundle exec pushpop jobs:run_once --file alert.rb
+This will send a message to slack.
+
+To run a web service, the command is:
+bundle exec ruby app.rb -p 8080
+Then you can open http://localhost:8080/ in browser to trigger the same alert.
+
