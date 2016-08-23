@@ -1,0 +1,12 @@
+runtime: ruby
+vm: true
+module: ruby
+entrypoint: bundle exec ruby app.rb -p 8080
+
+resources:
+  cpu: .1
+  memory_gb: 0.5
+  disk_size_gb: 10  # default/minimum
+
+manual_scaling:
+  instances: 1
