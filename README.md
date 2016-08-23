@@ -30,3 +30,8 @@ To deploy the service to GCE, the command is:
   gcloud config set project triggermail-datascience
   
   gcloud app deploy ruby.yaml
+
+
+Currently, this service has been deployed in triggermail-datascience project: https://console.cloud.google.com/appengine/services?project=triggermail-datascience&moduleId=ruby
+
+The link to trigger the alert is: https://ruby-dot-triggermail-datascience.appspot.com/
