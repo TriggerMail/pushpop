@@ -9,45 +9,53 @@ require "yaml"
 require "./helpers.rb"
 
 queries = YAML.load_file("./keen.yaml")
-
 queries["queries"].each do |query|
   job do
-    keen do
-      event_collection    query["event_collection"]
-      analysis_type       query["analysis_type"]
-      timeframe           query["timeframe"]
-      target_property     query["target_property"]
-      group_by            query["group_by"]
-      interval            query["interval"]
-      filters             [{ property_name: query["filter"][0],
-                             operator: "eq",
-                             property_value: query["filter"][1] }]
-    end
-
-    step do |response|
-      parser = KeenParser.new(response)
-      over_threshold = []
-      parser.percent_change.each do |partner|
-        if partner["result"] > 10
-          over_threshold.push(partner)
+  
+      keen do
+        event_collection    query["event_collection"]
+        analysis_type       query["analysis_type"]
+        timeframe           query["timeframe"]
+        target_property     query["target_property"]
+        group_by            query["group_by"]
+        interval            query["interval"]
+        filters             [{ property_name: query["filter"][0],
+                               operator: "eq",
+                               property_value: query["filter"][1] }]
+      end
+  
+      step do |response|
+        parser = KeenParser.new(response)
+        over_threshold = []
+        parser.percent_change.each do |partner|
+          if partner["result"] > 20
+            over_threshold.push(partner)
+          end
+        end
+        over_threshold.sort_by{ |hsh| hsh["result"] }.reverse!
+      end
+  
+      step do |response|
+        if response.length > 0
+          content = ""
+          response.each do |partner|
+            content += "#{partner["partner"]}: +%#{partner["result"].round(2)}\n"
+          end
+          {
+            "fallback" => "#{query["name"]} data integrity",
+            "text" => content
+          }
         end
       end
-      over_threshold.sort_by{ |hsh| hsh["result"] }.reverse!
-    end
-
-    slack do |response, _|
-      if response.length > 0
-        content = query["name"].upcase
-        content += "\n\n"
-        response.each do |partner|
-          content += "#{partner["partner"]} - %#{partner["result"].round(2)} increase\n"
+  
+      slack do |response|
+        if response
+          username "bluebot"
+          message "[#{query["name"].capitalize}](https://www.bluecore.com/admin/data-analysis-dashboard/data_integrity)"
+          icon "https://avatars.slack-edge.com/2015-10-27/13332011316_15716c9a1765d1a46b09_192.jpg"
+          attachment response
         end
-        content += "------------------------------------------"
-        message content
-        username "bluebot"
-        icon "https://avatars.slack-edge.com/2015-10-27/13332011316_15716c9a1765d1a46b09_192.jpg"
       end
-    end
-
+  
   end
 end

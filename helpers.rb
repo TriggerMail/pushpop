@@ -13,7 +13,7 @@ class KeenParser
     data[0].zip(data[1]).each do |week_ago, now|
       if week_ago["partner"] == now["partner"]
         recent_result = now["result"] || 0
-        week_ago_result = week_ago["result"] || 0
+        week_ago_result = week_ago["result"] || recent_result
         results.push({
           "partner" => week_ago["partner"],
           "result" => recent_result - week_ago_result 
