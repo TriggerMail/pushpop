@@ -1,0 +1,78 @@
+queries:
+
+- name: bad_names
+  event_collection: data_integrity
+  analysis_type: average
+  target_property: metric_value
+  timeframe: last_30_days
+  group_by: partner
+  interval: weekly
+  filter:
+    - metric_name
+    - bad_names_percent
+
+- name: bad_prices
+  event_collection: data_integrity
+  analysis_type: average
+  target_property: metric_value
+  timeframe: last_30_days
+  group_by: partner
+  interval: weekly
+  filter:
+    - metric_name
+    - bad_prices_percent
+
+- name: bad_search
+  event_collection: data_integrity
+  analysis_type: average
+  target_property: metric_value
+  timeframe: last_30_days
+  group_by: partner
+  interval: weekly
+  filter:
+    - metric_name
+    - bad_search_percent
+
+- name: bad_urls
+  event_collection: data_integrity
+  analysis_type: average
+  target_property: metric_value
+  timeframe: last_30_days
+  group_by: partner
+  interval: weekly
+  filter:
+    - metric_name
+    - bad_urls_percent
+
+- name: emails_not_found
+  event_collection: data_integrity
+  analysis_type: average
+  target_property: metric_value
+  timeframe: last_30_days
+  group_by: partner
+  interval: weekly
+  filter:
+    - metric_name
+    - emails_not_found_percent
+
+- name: missing_totals
+  event_collection: data_integrity
+  analysis_type: average
+  target_property: metric_value
+  timeframe: last_30_days
+  group_by: partner
+  interval: weekly
+  filter:
+    - metric_name
+    - missing_totals_percent
+
+- name: purchase_ids_not_found
+  event_collection: data_integrity
+  analysis_type: average
+  target_property: metric_value
+  timeframe: last_30_days
+  group_by: partner
+  interval: weekly
+  filter:
+    - metric_name
+    - purchase_ids_not_found_percent
