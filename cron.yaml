@@ -1,4 +1,4 @@
 cron:
 - description: data integrity alert 
   url: /task
-  schedule: every monday at 14:00  
+  schedule: every monday 14:00
