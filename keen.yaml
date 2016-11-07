@@ -76,3 +76,58 @@ queries:
   filter:
     - metric_name
     - purchase_ids_not_found_percent
+
+- name: viewed_cart_id_not_found
+  event_collection: data_integrity
+  analysis_type: average
+  target_property: metric_value
+  timeframe: last_30_days
+  group_by: partner
+  interval: weekly
+  filter:
+    - metric_name
+    - viewed_cart_id_not_found_percent
+
+- name: add_to_cart_id_not_found
+  event_collection: data_integrity
+  analysis_type: average
+  target_property: metric_value
+  timeframe: last_30_days
+  group_by: partner
+  interval: weekly
+  filter:
+    - metric_name
+    - add_to_cart_id_not_found_percent
+
+- name: viewed_product_id_not_found
+  event_collection: data_integrity
+  analysis_type: average
+  target_property: metric_value
+  timeframe: last_30_days
+  group_by: partner
+  interval: weekly
+  filter:
+    - metric_name
+    - viewed_product_id_not_found_percent
+
+- name: no_purchase_ids 
+  event_collection: data_integrity
+  analysis_type: average
+  target_property: metric_value
+  timeframe: last_30_days
+  group_by: partner
+  interval: weekly
+  filter:
+    - metric_name
+    - no_purchase_ids_percent
+
+- name: purchase_id_without_view_id 
+  event_collection: data_integrity
+  analysis_type: average
+  target_property: metric_value
+  timeframe: last_30_days
+  group_by: partner
+  interval: weekly
+  filter:
+    - metric_name
+    - purchase_id_without_view_id_percent
